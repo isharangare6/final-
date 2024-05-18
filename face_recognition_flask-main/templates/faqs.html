@@ -1,0 +1,112 @@
+
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+</style>
+</head>
+<body bgcolor=" #cce6ff";>
+<body>
+<br>
+<hr color="black">
+<h2>Frequently Asked Questions</h2>
+<p>Click on the buttons to open the collapsible content.</p>
+
+<button class="accordion"> 1. What is a smart attendance system using face recognition?</button>
+<div class="panel">
+  <p>- A smart attendance system using face recognition is a technology that automatically tracks attendance by analyzing and identifying individuals' faces.</p>
+</div>
+
+<button class="accordion">2. How does face recognition work in an attendance system?</button>
+<div class="panel">
+  <p> - Face recognition technology in an attendance system captures images of individuals' faces, analyzes facial features, and matches them with pre-registered identities in a database to record attendance..</p>
+</div>
+
+<button class="accordion">3. What are the benefits of using face recognition for attendance?
+</button>
+<div class="panel">
+  <p>  -Benefits include eliminating manual attendance tracking, reducing errors, preventing buddy punching, and providing real-time attendance data. </p>
+</div>
+
+
+
+<button class="accordion">4. Is face recognition attendance system secure? </button>
+<div class="panel">
+  <p>  - Reputable systems encrypt and store facial data securely to prevent unauthorized access. However, it's crucial to implement proper security measures to protect against potential vulnerabilities.
+</p>
+</div>
+
+
+<button class="accordion">5. What hardware is required for setting up a face recognition attendance system?</button>
+<div class="panel">
+  <p> - Hardware typically includes a camera-equipped device such as a computer, tablet, or smartphone.</p>
+</div>
+
+
+
+<button class="accordion">6. What software is needed for implementing face recognition?</button>
+<div class="panel">
+  <p>   - Software requirements may include face recognition libraries like OpenCV or Dlib, along with programming languages like Python for implementation.
+</p>
+</div>
+
+
+
+<button class="accordion">7.  Is the installation complex?</button>
+<div class="panel">
+  <p> - Basic installations are relatively straightforward, but advanced features may require more setup and technical expertise.</p>
+</div>
+
+
+<button class="accordion">8.  Can color blindness be inherited? </button>
+<div class="panel">
+  <p> - Yes, color blindness is typically an inherited condition. The genes responsible for color vision deficiencies are carried on the X chromosome, which means the condition is more commonly passed down from mothers to their sons .</p>
+</div>
+
+
+
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  });
+}
+</script>
+
+</body>
+
+</html>

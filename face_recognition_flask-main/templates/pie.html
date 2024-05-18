@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pie Chart</title>
+    <style>
+        .chart-container {
+            width: 400px;
+            height: 400px;
+            position: relative;
+        }
+
+        .chart {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(#FF5733 0%, #FFC300 25%, #DAF7A6 50%, #7D3C98 75%, #00CED1 100%);
+        }
+
+        .center-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <div class="chart"></div>
+        <div class="center-text">Pie Chart</div>
+    </div>
+
+    <script>
+        // Your JavaScript code to generate the pie chart goes here
+        // You can use libraries like Chart.js or D3.js for this purpose
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    fetch('merged_file.csv')
+        .then(response => response.text())
+        .then(data => {
+            const rows = data.split('\n').slice(1); // Skip header
+            const labels = [];
+            const values = [];
+            rows.forEach(row => {
+                const [label, value] = row.split(',');
+                labels.push(label);
+                values.push(value);
+            });
+
+            const ctx = document.querySelector('.chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: [
+                            '#FF5733',
+                            '#FFC300',
+                            '#DAF7A6',
+                            '#7D3C98',
+                            '#00CED1'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        });
+</script>
+
+    </script>
+</body>
+</html>

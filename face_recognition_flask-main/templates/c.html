@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance System</title>
+    <style>
+
+
+
+    .attendance-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between:3px; /* Adjust spacing between sections */
+    border: 2px solid #000; /* Set border thickness and color */
+            padding: 10px; /* Add padding inside the border */
+            background-color: #f0f0f0; /* Set background color */
+            width: 50%; /* Set width to 50% of the screen */
+            margin: 0 auto; /* Center the container */
+
+
+
+}
+
+.select-box,
+.attendance-system {
+    flex-basis: 48%; /* Adjust width of each section */
+}
+
+.input-group {
+    margin-bottom: 10px; /* Add margin between input groups */
+}
+
+.label-group {
+    display: flex;
+    justify-content: space-between; /* Adjust spacing between labels */
+}
+
+.label-group label {
+    margin-right: 5px; /* Adjust right margin of labels */
+}
+
+label {
+    display: inline-block;
+    width: 120px; /* Adjust width of labels */
+    text-align: right;
+    margin-right: 5px; /* Adjust right margin of labels */
+}
+
+</style>
+</head>
+<script>
+        // Sample JavaScript for taking attendance and exporting to CSV
+        function takeAttendance() {
+            // Get selected teacher and subject
+            var teacher = document.getElementById("teacher").value;
+            var subject = document.getElementById("subject").value;
+
+            // Get list of students (assuming students are listed in a table)
+            var studentsTable = document.getElementById("studentsTable");
+            var students = [];
+            for (var i = 1; i < studentsTable.rows.length; i++) {
+                var studentName = studentsTable.rows[i].cells[0].innerText;
+                var present = studentsTable.rows[i].cells[1].querySelector("input[type=checkbox]").checked;
+                students.push({ name: studentName, present: present });
+            }
+
+            // Here you would take pictures of the students and handle them, possibly using a camera API
+
+            // Prepare data for CSV
+            var csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Teacher,Subject,Student Name,Present\n";
+            students.forEach(function(student) {
+                csvContent += teacher + "," + subject + "," + student.name + "," + (student.present ? "Present" : "Absent") + "\n";
+            });
+
+            // Export CSV
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "attendance.csv");
+            document.body.appendChild(link);
+            link.click();
+        }
+    </script>
+
+
+<div class="attendance-box center">
+        <div class="select-box">
+            <center><h2>Select Teacher and Subject</h2></center>
+            <div class="input-group">
+<center>
+                <label for="teacher">Teacher:</label>
+                <select id="teacher">
+                    <option value="PINKAL JAIN">PINKAL JAIN</option>
+                    <option value="KAMALJEET SINGH">KAMALJEET SINGH</option>
+                    <!-- Add more teachers here -->
+                </select>
+</center>
+            </div>
+            <div class="input-group">
+<center>
+                <label for="subject">Subject:</label>
+                <select id="subject">
+                    <option value="PYTHON">PYTHON</option>
+                    <option value="DATA Science">DATA Science</option>
+                    <!-- Add more subjects here -->
+                </select>
+</center>
+
+
+            </div>
+            <div class="input-group">
+                <center>
+                <label for="timePeriod">Time Period:</label>
+                <input type="text" id="timePeriod">
+                </center>
+
+            </div>
+
+        </div>
+
+        <div class="attendance-system">
+            <center><h2>Attendance System</h2></center>
+            <div class="input-group">
+                <label for="attendance">Attendance:</label>
+                <select id="attendance">
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                    <!-- Add more attendance options here if needed -->
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="name">Name:</label>
+                <select id="name">
+                    <option value="RISHU">RISHU</option>
+                    <option value="ISHA">ISHA</option>
+                    <!-- Add more names here if needed -->
+
+                </select>
+
+            </div>
+            <center><button onclick="takeAttendance()">Export to CSV</button></center>
+        </div>
+    <script>
+    function takeAttendance() {
+        var teacher = document.getElementById("teacher").value;
+        var subject = document.getElementById("subject").value;
+        var attendance = document.getElementById("attendance").value;
+        var name = document.getElementById("name").value;
+
+        var csvContent = "data:text/csv;charset=utf-8,";
+
+        // Header row
+        csvContent += "Teacher,Subject,Student Name,Attendance\n";
+
+        // Data rows
+        csvContent += teacher + "," + subject + "," + name + "," + attendance + "\n";
+
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "attendance.csv");
+        document.body.appendChild(link);
+        link.click();
+    }
+</script>
+
+</div>
+</body>
+</html>
+

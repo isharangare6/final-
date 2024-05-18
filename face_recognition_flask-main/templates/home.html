@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+
+<style type='text/css'>
+    * {
+        padding: 0;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+
+    body {
+        background-image: url('https://img.freepik.com/free-vector/realistic-neon-lights-background_23-2148907367.jpg?w=1380&t=st=1715806400~exp=1715807000~hmac=74ae37b0f173d22b4fafb134c6dc897dc86aad75868878ea46849bb744bdfd4e');
+        background-size: cover;
+        font-family: sans-serif;
+        margin-top: 40px;
+        padding: 0;
+        margin: 0;
+    }
+
+    table {
+        border-radius: 20px;
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 86%;
+        margin: auto;
+    }
+
+    td,
+    th {
+        padding: 10px;
+    }
+
+    tr:nth-child(even) {
+        background-color: white;
+    }
+
+
+
+    .attendance-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between:3px; /* Adjust spacing between sections */
+    border: 2px solid #000; /* Set border thickness and color */
+            padding: 10px; /* Add padding inside the border */
+            background-color: #cc0052; /* Set background color */
+            width: 50%; /* Set width to 50% of the screen */
+            margin: 0 auto; /* Center the container */
+
+
+
+}
+h1 {
+    color:blue;
+}
+
+.select-box,
+.attendance-system {
+    flex-basis: 48%; /* Adjust width of each section */
+}
+
+.input-group {
+    margin-bottom: 10px; /* Add margin between input groups */
+}
+
+.label-group {
+    display: flex;
+    justify-content: space-between; /* Adjust spacing between labels */
+}
+
+.label-group label {
+    margin-right: 5px; /* Adjust right margin of labels */
+}
+
+label {
+    display: inline-block;
+    width: 120px; /* Adjust width of labels */
+    text-align: right;
+    margin-right: 5px; /* Adjust right margin of labels */
+}
+
+</style>
+<script>
+        // Sample JavaScript for taking attendance and exporting to CSV
+        function takeAttendance() {
+            // Get selected teacher and subject
+            var teacher = document.getElementById("teacher").value;
+            var subject = document.getElementById("subject").value;
+
+            // Get list of students (assuming students are listed in a table)
+            var studentsTable = document.getElementById("studentsTable");
+            var students = [];
+            for (var i = 1; i < studentsTable.rows.length; i++) {
+                var studentName = studentsTable.rows[i].cells[0].innerText;
+                var present = studentsTable.rows[i].cells[1].querySelector("input[type=checkbox]").checked;
+                students.push({ name: studentName, present: present });
+            }
+
+            // Here you would take pictures of the students and handle them, possibly using a camera API
+
+            // Prepare data for CSV
+            var csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Teacher,Subject,Student Name,Present\n";
+            students.forEach(function(student) {
+                csvContent += teacher + "," + subject + "," + student.name + "," + (student.present ? "Present" : "Absent") + "\n";
+            });
+
+            // Export CSV
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "attendance.csv");
+            document.body.appendChild(link);
+            link.click();
+        }
+    </script>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <title>Face Recognition Based Attendance System</title>
+
+     <div class='mt-3 text-center' style="background-color: rgba(92, 38, 239, 0.9);">
+        <h1 style="color: white;padding: 11px;font-size: 44px; margin-top: 100px;">Face Recognition Based
+            Attendance System</h1>
+    </div>
+</head>
+<div class="attendance-box center">
+        <div class="select-box">
+            <center><h2>Select Teacher and Subject</h2></center>
+            <div class="input-group">
+<center>
+                <label for="teacher">Teacher:</label>
+                <select id="teacher">
+                    <option value="PINKAL JAIN">PINKAL JAIN</option>
+                    <option value="KAMALJEET SINGH">KAMALJEET SINGH</option>
+                    <!-- Add more teachers here -->
+                </select>
+</center>
+            </div>
+            <div class="input-group">
+<center>
+                <label for="subject">Subject:</label>
+                <select id="subject">
+                    <option value="PYTHON">PYTHON</option>
+                    <option value="DATA Science">DATA Science</option>
+                    <!-- Add more subjects here -->
+                </select>
+</center>
+
+
+            </div>
+            <div class="input-group">
+                <center>
+                <label for="timePeriod">Time Period:</label>
+                <input type="text" id="timePeriod">
+                </center>
+
+            </div>
+
+        </div>
+
+        <div class="attendance-system">
+            <center><h2>Attendance System</h2></center>
+            <div class="input-group">
+                <label for="attendance">Attendance:</label>
+                <select id="attendance">
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                    <!-- Add more attendance options here if needed -->
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="name">Name:</label>
+                <select id="name">
+                    <option value="RISHU">RISHU</option>
+                    <option value="ISHA">ISHA</option>
+                    <!-- Add more names here if needed -->
+
+                </select>
+
+            </div>
+            <center><button onclick="takeAttendance()">Export to CSV</button></center>
+        </div>
+
+ <script>
+    function takeAttendance() {
+        var teacher = document.getElementById("teacher").value;
+        var subject = document.getElementById("subject").value;
+        var attendance = document.getElementById("attendance").value;
+        var name = document.getElementById("name").value;
+
+        var csvContent = "data:text/csv;charset=utf-8,";
+
+        // Header row
+        csvContent += "Teacher,Subject,Student Name,Attendance\n";
+
+        // Data rows
+        csvContent += teacher + "," + subject + "," + name + "," + attendance + "\n";
+
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "attendance.csv");
+        document.body.appendChild(link);
+        link.click();
+    }
+</script>
+
+    </div>
+
+
+    {% if mess%}
+    <p class="text-center" style="color: red;font-size: 20px;">{{ mess }}</p>
+    {% endif %}
+
+    <div class="row text-center" style="padding: 20px;margin: 20px;">
+
+        <div class="col"
+            style="border-radius: 20px;padding: 0px;background-color:rgb(0, 0, 0, 0.8);margin:0px 10px 10px 10px;min-height: 400px;">
+            <h2 style="border-radius: 20px 20px 0px 0px;background-color: rgb(216, 13, 77) ; color: white;padding: 10px;">Today's
+                Attendance <i class="material-icons">assignment</i></h2>
+            <a style="text-decoration: none;max-width: 300px;" href="/start">
+                <button
+                    style="font-size: 24px;font-weight: bold;border-radius: 10px;width:490px;padding: 10px;margin-top: 30px;margin-bottom: 30px;"
+                    type='submit' class='btn btn-primary'>Take Attendance <i
+                        class="material-icons">beenhere</i></button>
+            </a>
+            <table style="background-color: white;">
+                <tr>
+                    <td><b>S No</b></td>
+                    <td><b>Name</b></td>
+                    <td><b>ID</b></td>
+                    <td><b>Time</b></td>
+                </tr>
+                {% if l %}
+
+                {% for i in range(l) %}
+                <tr>
+                    <td>{{ i+1 }}</td>
+                    <td>{{ names[i] }}</td>
+                    <td>{{ rolls[i] }}</td>
+                    <td>{{ times[i] }}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </table>
+
+        </div>
+
+        <div class="col"
+            style="border-radius: 20px;padding: 0px;background-color:rgb(0, 0, 0, 0.8);margin:0px 10px 10px 10px;height: 400px;">
+            <form action='/add' method="POST" enctype="multipart/form-data">
+                <h2 style="border-radius: 20px 20px 0px 0px;background-color: rgb(216, 13, 77) ;color: white;padding: 10px;">Add
+                    New User <i class="material-icons">control_point_duplicate</i></h2>
+                <label style="font-size: 20px; color: white"><b>Enter New User Name*</b></label>
+                <br>
+                <input type="text" id="newusername" name='newusername'
+                    style="font-size: 20px;margin-top:10px;margin-bottom:10px;border-radius: 10px;width: 300px; height: 50px;" required>
+                <br>
+                <label style="font-size: 20px;color: white"><b>Enter New User Id*</b></label>
+                <br>
+                <input type="number" id="newusereid" name='newuserid'
+                    style="font-size: 20px;margin-top:10px;margin-bottom:10px;border-radius: 10px; width: 300px; height: 50px;" required>
+                <br>
+                <button style="width: 232px;margin-top: 20px;font-size: 20px; border-radius: 10px; width: 300px; height: 50px;" type='submit' class='btn btn-dark'>Add
+                    New User
+                </button>
+                <br>
+                <h5 style="padding: 25px; color: white;"><i>Total Users in Database: {{totalreg}}</i></h5>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+</html>
